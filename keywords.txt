@@ -1,0 +1,55 @@
+#######################################
+# Syntax Coloring Map For GTimer
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+GTimerT	KEYWORD1
+GTimer8	KEYWORD1
+GTimer16	KEYWORD1
+GTimer	KEYWORD1
+
+GTimerCbT	KEYWORD1
+GTimerCb8	KEYWORD1
+GTimerCb16	KEYWORD1
+GTimerCb	KEYWORD1
+
+GTMode	KEYWORD1
+thisGTimer	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+keepPhase	KEYWORD2
+getPhase	KEYWORD2
+setTime	KEYWORD2
+getTime	KEYWORD2
+setMode	KEYWORD2
+getMode	KEYWORD2
+start	KEYWORD2
+pause	KEYWORD2
+resume	KEYWORD2
+stop	KEYWORD2
+force	KEYWORD2
+running	KEYWORD2
+getLeft	KEYWORD2
+getLeft8	KEYWORD2
+getLeft16	KEYWORD2
+tick	KEYWORD2
+attach	KEYWORD2
+detach	KEYWORD2
+startTimeout	KEYWORD2
+startInterval	KEYWORD2
+startOverflow	KEYWORD2
+onReady	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+Interval	LITERAL1
+Timeout	LITERAL1
+Overflow	LITERAL1
