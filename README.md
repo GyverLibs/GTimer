@@ -244,9 +244,15 @@ void setup() {
 }
 
 void loop() {
-  EVERY_T(500, millis) Serial.println("500 ms!");
+//   EVERY_T(500, millis) Serial.println("500 ms!");
   
-  EVERY_T(100000, micros) {
+//   EVERY_T(100000, micros) {
+//     Serial.println("100000 us!");
+//   }
+
+  EVERY_MS(500) Serial.println("500 ms!");
+
+  EVERY_US(100000) {
     Serial.println("100000 us!");
   }
 }

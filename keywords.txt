@@ -20,6 +20,8 @@ GTMode	KEYWORD1
 thisGTimer	KEYWORD1
 
 EVERY_T	KEYWORD1
+EVERY_MS	KEYWORD1
+EVERY_US	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
