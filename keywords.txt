@@ -19,6 +19,8 @@ GTimerCb	KEYWORD1
 GTMode	KEYWORD1
 thisGTimer	KEYWORD1
 
+EVERY_T	KEYWORD1
+
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################

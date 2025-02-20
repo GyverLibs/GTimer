@@ -153,8 +153,8 @@ virtual void onReady();
 - `TimerCallback` - функция вида `void f()`
 - `void* thisGTimer` - указатель на текущий таймер внутри обработчика
 
-### Примеры
-#### Обычный
+## Примеры
+### Обычный
 ```cpp
 #include <Arduino.h>
 #include <GTimer.h>
@@ -177,7 +177,7 @@ void loop() {
 }
 ```
 
-#### Обработчик
+### Обработчик
 ```cpp
 #include <Arduino.h>
 #include <GTimer.h>
@@ -209,7 +209,7 @@ void loop() {
 }
 ```
 
-#### Виртуальный
+### Виртуальный
 ```cpp
 #include <Arduino.h>
 #include <GTimer.h>
@@ -234,10 +234,29 @@ void loop() {
 }
 ```
 
+### Макрос
+```cpp
+#include <Arduino.h>
+#include <GTimer.h>
+
+void setup() {
+    Serial.begin(115200);
+}
+
+void loop() {
+  EVERY_T(500, millis) Serial.println("500 ms!");
+  
+  EVERY_T(100000, micros) {
+    Serial.println("100000 us!");
+  }
+}
+```
+
 <a id="versions"></a>
 
 ## Версии
 - v1.0
+- v1.0.1 - добавлен макрос EVERY_T
 
 <a id="install"></a>
 ## Установка
