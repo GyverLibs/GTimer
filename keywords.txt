@@ -39,6 +39,7 @@ resume	KEYWORD2
 stop	KEYWORD2
 force	KEYWORD2
 running	KEYWORD2
+getCurrent	KEYWORD2
 getLeft	KEYWORD2
 getLeft8	KEYWORD2
 getLeft16	KEYWORD2

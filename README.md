@@ -112,6 +112,9 @@ void force();
 // таймер запущен
 bool running();
 
+// прошло времени в единицах таймера
+T getCurrent();
+
 // осталось времени в единицах таймера
 T getLeft();
 
@@ -206,6 +209,11 @@ void setup() {
 void loop() {
     tmr1.tick();
     tmr2.tick();
+
+    static GTimerCb<millis> tmr3(500, []() {
+        Serial.println("ready 3");
+    });
+    tmr3.tick();
 }
 ```
 

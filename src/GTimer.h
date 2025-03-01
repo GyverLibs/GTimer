@@ -128,15 +128,20 @@ class GTimerT {
         return _state == _GT_RUNNING;
     }
 
+    // прошло времени в единицах таймера
+    T getCurrent() {
+        if (_overflow) return 0;
+        switch (_state) {
+            case _GT_RUNNING: return (T)uptime() - _tmr;
+            case _GT_PAUSED: return _tmr;
+        }
+        return 0;
+    }
+
     // осталось времени в единицах таймера
     T getLeft() {
         if (_overflow) return 0;
-        T t;
-        switch (_state) {
-            case _GT_RUNNING: t = (T)uptime() - _tmr; break;
-            case _GT_PAUSED: t = _tmr; break;
-            case _GT_STOPPED: return 0;
-        }
+        T t = getCurrent();
         return (_prd >= t) ? (_prd - t) : 0;
     }
 
@@ -194,6 +199,8 @@ class GTimerCbT : public GTimerT<uptime, T> {
 
    public:
     using GTimerT<uptime, T>::GTimerT;
+
+    GTimerCbT(uint32_t time, TimerCallback cb, GTMode mode = GTMode::Interval, bool keepPhase = false) : GTimerT<uptime, T>(time, true, mode, keepPhase), _cb(cb) {}
 
     // подключить обработчик таймера
     void attach(TimerCallback cb) {
