@@ -134,6 +134,9 @@ operator bool();
 #### GTimerCbX
 
 ```cpp
+// будет запущен
+GTimerCbX(uint32_t time, TimerCallback cb, GTMode mode = GTMode::Interval, bool keepPhase = false);
+
 // подключить обработчик таймера
 void attach(TimerCallback cb);
 
