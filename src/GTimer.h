@@ -160,7 +160,12 @@ class GTimerT {
         if (running() && (_overflow || (T)((T)uptime() - _tmr) >= _prd)) {
             switch (_mode) {
                 case _GT_INTERVAL:
-                    _tmr = _phase ? (_tmr + _prd) : uptime();
+                    if (_phase) {
+                        T left = (T)((T)uptime() - _tmr);
+                        _tmr += _prd * ((left >= _prd * 2) ? (left / _prd) : 1);
+                    } else {
+                        _tmr = uptime();
+                    }
                     break;
                 case _GT_TIMEOUT:
                     stop();
