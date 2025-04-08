@@ -297,6 +297,7 @@ class GTimerCb : public GTimerCbT<uptime, uint32_t> {
 };
 
 // ============= MACRO =============
-#define EVERY_T(prd, uptime) if (static uint32_t _tmr_ = 0; !(uptime() - _tmr_ >= (prd) ? (_tmr_ = uptime(), true) : false)); else
+// #define EVERY_T(prd, uptime) if (static uint32_t _tmr_ = 0; !(uptime() - _tmr_ >= (prd) ? (_tmr_ = uptime(), true) : false)); else
+#define EVERY_T(prd, uptime) if (static uint32_t _tmr_ = 0; uptime() - _tmr_ >= (prd) ? (_tmr_ = uptime(), true) : false)
 #define EVERY_MS(ms) EVERY_T(ms, millis)
 #define EVERY_US(us) EVERY_T(us, micros)
