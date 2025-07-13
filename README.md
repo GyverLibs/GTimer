@@ -159,6 +159,47 @@ virtual void onReady();
 - `TimerCallback` - функция вида `void f()`
 - `void* thisGTimer` - указатель на текущий таймер внутри обработчика
 
+### Макросы
+```cpp
+// EVERY
+EVERY_T(prd, uptime, T);
+
+EVERY_S(s);
+
+EVERY_MS(ms);
+EVERY16_MS(ms);
+EVERY8_MS(ms);
+
+EVERY_US(us);
+EVERY16_US(us);
+EVERY8_US(us);
+
+// PHASE
+PHASE_T(prd, uptime, T);
+
+PHASE_S(s);
+
+PHASE_MS(ms);
+PHASE16_MS(ms);
+PHASE8_MS(ms);
+
+PHASE_US(us);
+PHASE16_US(us);
+PHASE8_US(us);
+```
+
+- Тип
+  - `EVERY` - сброс timer = uptime
+  - `PHASE` - timer += prd
+- Единицы
+  - `S` - секунды
+  - `MS` - миллисекунды
+  - `US` - микросекунды
+- Разрядность
+  - Без цифры - 32-битный счётчик (до 4 294 967 295 единиц)
+  - `16` - 16-битный счётчик (до 65 535 единиц)
+  - `8` - 8-битный счётчик (до 255 единиц)
+
 ## Примеры
 ### Обычный
 ```cpp
@@ -265,6 +306,10 @@ void loop() {
 
   EVERY_US(100000) {
     Serial.println("100000 us!");
+  }
+
+  EVERY_S(5) {
+    Serial.println("5 s!");
   }
 }
 ```
