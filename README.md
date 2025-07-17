@@ -159,6 +159,41 @@ virtual void onReady();
 - `TimerCallback` - функция вида `void f()`
 - `void* thisGTimer` - указатель на текущий таймер внутри обработчика
 
+#### uTimerX
+Самый компактный класс таймера:
+
+- `uTimer8` - 8 бит
+- `uTimer16` - 16 бит
+- `uTimer` - 32 бит
+
+```cpp
+uTimer(bool start = false);
+
+// запустить/перезапустить
+void start();
+
+// остановить
+void stop();
+
+// таймаут
+bool timeout(T tout);
+
+// период
+bool period(T prd);
+
+// фаза
+bool phase(T prd);
+
+// переполнение
+bool overflow(T prd);
+
+// таймер запущен
+bool running();
+
+// прошло времени со старта
+T elapsed();
+```
+
 ### Макросы
 ```cpp
 // EVERY
@@ -311,6 +346,24 @@ void loop() {
   EVERY_S(5) {
     Serial.println("5 s!");
   }
+}
+```
+
+### uTimer
+```cpp
+#include <GTimer.h>
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("start");
+}
+
+uTimer16<millis> tmr(true);
+
+void loop() {
+    if (tmr.timeout(500)) {
+        Serial.println("tout");
+    }
 }
 ```
 
