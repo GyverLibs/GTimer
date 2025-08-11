@@ -1,7 +1,7 @@
 #pragma once
 #include "GTimerCbT.h"
 #include "GTimerT.h"
-#include "tMacro.h"
+#include "GTMacro.h"
 #include "uTimerT.h"
 
 // ============= uTimer =============
