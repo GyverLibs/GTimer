@@ -29,7 +29,7 @@ class uTimerT {
     }
 
     // период
-    bool period(T prd) {
+    bool interval(T prd) {
         if (overflow(prd)) {
             start();
             return true;
@@ -48,19 +48,27 @@ class uTimerT {
     }
 
     // переполнение
-    bool overflow(T prd) {
+    bool overflow(T prd) const {
         return _tmr && elapsed() >= prd;
     }
 
+    // прошло времени со старта
+    T elapsed() const {
+        return T(uptime()) - _tmr;
+    }
+
     // таймер запущен
-    bool running() {
+    bool running() const {
         return _tmr;
     }
 
-    // прошло времени со старта
-    T elapsed() {
-        return T(uptime()) - _tmr;
+    // таймер запущен
+    operator bool() const {
+        return _tmr;
     }
+
+    // устарело
+    bool period(T prd) { return interval(prd); }
 
    private:
     T _tmr = 0;

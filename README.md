@@ -178,8 +178,8 @@ void stop();
 // таймаут
 bool timeout(T tout);
 
-// период
-bool period(T prd);
+// интервал
+bool interval(T prd);
 
 // фаза
 bool phase(T prd);

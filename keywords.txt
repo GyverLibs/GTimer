@@ -35,6 +35,9 @@ resume	KEYWORD2
 stop	KEYWORD2
 force	KEYWORD2
 running	KEYWORD2
+interval	KEYWORD2
+period	KEYWORD2
+timeout	KEYWORD2
 getCurrent	KEYWORD2
 getLeft	KEYWORD2
 getLeft8	KEYWORD2
