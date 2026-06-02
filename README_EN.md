@@ -1,266 +1,416 @@
-This is an automatic translation, may be incorrect in some places. See sources and examples!
+This is an automatic translation and may be incorrect in some places. See the source README and examples for authoritative information.
 
-# Gtimer
-Light and universal software timer
-- works with `Millis`,` Micros` and any other pharmacy functions of the `Unsigned Long uptime ()` `` `` `
-- 3 operating modes: interval timer, timeout, overflow
-- 3 memory options: 8, 16 and 32 bits periods
-- the possibility of suspension and continuation of the account
-- two options for the phase of intervals
-- easy implementation - two variables for a timer + 1 byte of settings
-- Collback and virtual function for inheritance
+[![latest](https://img.shields.io/github/v/release/GyverLibs/GTimer.svg?color=brightgreen)](https://github.com/GyverLibs/GTimer/releases/latest/download/GTimer.zip)
+[![PIO](https://badges.registry.platformio.org/packages/gyverlibs/library/GTimer.svg)](https://registry.platformio.org/libraries/gyverlibs/GTimer)
+[![Foo](https://img.shields.io/badge/Website-AlexGyver.ru-blue.svg?style=flat-square)](https://alexgyver.ru/)
+[![Foo](https://img.shields.io/badge/%E2%82%BD%24%E2%82%AC%20%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%82%D1%8C-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0-orange.svg?style=flat-square)](https://alexgyver.ru/support_alex/)
+[![Foo](https://img.shields.io/badge/README-ENGLISH-blueviolet.svg?style=flat-square)](https://github-com.translate.goog/GyverLibs/GTimer?_x_tr_sl=ru&_x_tr_tl=en)  
 
-## compatibility
-All platforms
+[![Foo](https://img.shields.io/badge/ПОДПИСАТЬСЯ-НА%20ОБНОВЛЕНИЯ-brightgreen.svg?style=social&logo=telegram&color=blue)](https://t.me/GyverLibs)
 
-## Content
-- [use] (#usage)
-- [versions] (#varsions)
-- [installation] (# Install)
-- [bugs and feedback] (#fedback)
+# GTimer
+Easy and universal program timer
+- Works with`millis`, `micros`and any other functions of the Uptime type`unsigned long uptime()`
+- 3 modes of operation: interval timer, timeout, overflow
+- 3 memory options: 8, 16 and 32 bit periods
+- Possibility of suspension and continuation of the account
+- Two variants of the interval phase
+- Easy implementation - two variables under timer + 1 byte settings
+- Collback and Virtual Inheritance Function
 
-<a id = "USAGE"> </A>
+### Compatibility
+All platforms.
 
-## Usage
-> [! Note]
-> The timer correctly passes through the "overwhelming" of pharmacy function (Millis, Micros)
+## Contents
+- [Use of use](#usage)
+- [Versions](#versions)
+- [Installation](#install)
+- [Bugs and feedback](#feedback)
 
-### operating mode
-- `gtmode :: Interval` - the timer is restarted after the operation
-- `gtmode :: timeout` - the timer stops after the trigger
-- `gtmode :: overflow` - the timer works after the trigger
+<a id="usage"></a>
 
-! [Mode] (doc/mode.png)
+## Use of use
+> [!NOTE]
+> The timer correctly passes through the "overflow" of the uptime function (millis, micros).
 
-### phase mode
-In the `Keepphase` mode, the interval is multiple of the period even with delays in the program:
+### Mode of work
+- `GTMode::Interval`- the timer restarts after operation
+- `GTMode::Timeout`- the timer stops after operation
+- `GTMode::Overflow`- the timer is triggered after operation
 
-! [Mode] (doc/phase.png)
+![mode](docs/mode.png)
 
-## H initialization
+### Phase mode
+In mode.`keepPhase`activation of the interval multiple of the period even with delays in the program:
+
+![mode](docs/phase.png)
+
+### Initialization
 The library contains 6 timer options:
-- `gtimer` - 32 bits periods (up to 4 294 967 295)
-- `gtimer16` - 16 bits periods (up to 65 535)
-- `gtimer8` - 8 bit periods (up to 255)
-- `gtimercb`,` gtimercb16`, `gtimercb8` - the same
+- `GTimer`32 bit periods (up to 4,294,967,295)
+- `GTimer16`16 bit periods (up to 65,535)
+- `GTimer8`- 8 bit periods (up to 255)
+- `GTimerCb`, `GTimerCb16`, `GTimerCb8`- Same thing, but with a callback.
 
-`` `CPP
-Gtimerx <uptime> (Uint32_t Time, Bool Start = FALSE, GTMODE MODE = GTMODE :: Interval, Bool Keepphase = False);
-`` `
+```cpp
+GTimerX<uptime>(uint32_t time, bool start = false, GTMode mode = GTMode::Interval, bool keepPhase = false);
+```
 
-- `uptime` - Aptima function (` Millis`, `Micros`, its own function of the` Unsigned Long uptime (VOID) `)
-- `time` - time in timer units
-- `Start` - start right away
-- `mode` - mode of operation
-- `KEEPPHASE - interval phase mode
+- `uptime`- uptime function (`millis`, `micros`kind of function`unsigned long uptime(void)`)
+- `time`- time in timer units
+- `start`launch immediately
+- `mode`mode of operation
+- `keepPhase`- interval phase mode
 
-### description of classes
-### gtimerx
+### Description of classes
+#### GTimerX
 
-`` `CPP
-// Keep the phase in Interval mode.
-VOID KEEPPHASE (BOOL KEEP);
+```cpp
+// Keep the phase in Interval mode (silent. false)
+void keepPhase(bool keep);
 
-// Keep the phase on Interval mode
-bool getphase ();
+// phase out
+bool getPhase();
 
-// set time in timer units
-VOID settime (uint32_t time);
+// time-set
+void setTime(uint32_t time);
 
-// set time (for MS)
-VOID settime (uint32_t ms, uint32_t sec, uint16_t min = 0, uint16_t hur = 0, uint16_t day = 0);
+// set the time (for ms)
+void setTime(uint32_t ms, uint32_t sec, uint16_t min = 0, uint16_t hour = 0, uint16_t day = 0);
 
-// Get time in timer units
-T gettime ();
+// timed
+T getTime();
 
-// Set the mode: gtmode :: interval, gtmode :: timeout, gtmode :: overflow
-VOID setmode (gtmode mode);
+// set to GTMode::Interval, GTMode::Timeout, GTMode::Overflow
+void setMode(GTMode mode);
 
-// Get mode: gtmode :: interval, gtmode :: Timeout, gtmode :: overflow
-Gtmode getmode ();
+// Get GTMode::Interval, GTMode::Timeout, GTMode::Overflow
+GTMode getMode();
 
-// Launch with time (for MS)
-VOID Start (Uint32_t MS, Uint32_T Sec, Uint16_t Min = 0, Uint16_t Hour = 0, Uint16_T Day = 0);
+// start with time indication (for ms)
+void start(uint32_t ms, uint32_t sec, uint16_t min = 0, uint16_t hour = 0, uint16_t day = 0);
 
-// Launch with time and regime
-Void Start (Uint32_T Time, Gtmode Mode);
+// launch
+void start(uint32_t time, GTMode mode);
 
-// Launch with time
-VOID Start (Uint32_T Time);
+// timing
+void start(uint32_t time);
 
-// Run/restart
-VOID Start ();
+// launch/reset
+void start();
 
 // suspend
-VOID PAUSE ();
+void pause();
 
-// Continue
-VOID Resume ();
+// continue
+void resume();
 
-// Stop
-VOID Stop ();
+// stop
+void stop();
 
-// Call the operation
-VOID form ();
+// trigger
+void force();
 
-// Timer launched
-Bool Running ();
+// timer
+bool running();
 
-// There is time left in the timer units
-T getleft ();
+// Time has passed in timer units
+T getCurrent();
 
-// There is time left at 8 bits (0 .. 255)
-uint8_t getleft8 ();
+// Time left in timer units
+T getLeft();
 
-// there is a 16 bit time (0 .. 65 535)
-uint16_t getleft16 ();
+// 8 bits left (0..255)
+uint8_t getLeft8();
 
-// ticker, call in LOOP.Will return True when triggeredAI
-Bool Tick ();
+// 16 bits left (0.65,535)
+uint16_t getLeft16();
 
-// Call Tick
-Operator Bool ();
-`` `
+// ticker, call the loop. It will return true when triggered.
+bool tick();
 
-### gtimercbx
+// tick
+operator bool();
+```
 
-`` `CPP
-// Connect the timer processor
-Void Attach (Timercallback CB);
+#### GTimerCbX
 
-// Disable the timer handler
-VOID Detach ();
+```cpp
+// launch
+GTimerCbX(uint32_t time, TimerCallback cb, GTMode mode = GTMode::Interval, bool keepPhase = false);
 
-// Launch in the time of the timeout
-VOID Starttimeout (Uint32_T Time, Timercallback CB);
+// timer
+void attach(TimerCallback cb);
 
-// Launch in interval mode
-VOID Startinterval (Uint32_T Time, Timercallback CB);
+// turn off timer handler
+void detach();
 
-// Launch in the overflow mode
-VOID Startoverflow (Uint32_T Time, Timercallback CB);
+// timeout
+void startTimeout(uint32_t time, TimerCallback cb);
 
-// is called when triggered
-Virtual Void OnReady ();
-`` `
+// interval
+void startInterval(uint32_t time, TimerCallback cb);
 
-- `Timercallback` - the function of the species` void f () `
-- `void* thisgtimer` - a pointer for the current timer inside the handle
+// overflow
+void startOverflow(uint32_t time, TimerCallback cb);
 
-### Examples
-#### Ordinary
-`` `CPP
-#include <arduino.h>
-#include <gtimer.h>
+// triggered
+virtual void onReady();
+```
 
-Gtimer <millis> tmr1;
+- `TimerCallback`function`void f()`
+- `void* thisGTimer`- pointer to the current timer inside the handler
 
-VOID setup () {
-Serial.Begin (115200);
+#### uTimerX
+The most compact class of timer:
 
-TMR1.Setmode (gtmode :: Timeout);
-TMR1.Settime (2000);
-tmr1.start ();
+- `uTimer8`8 bits.
+- `uTimer16`- 16 bits.
+- `uTimer`- 32 bits.
+
+```cpp
+uTimer(bool start = false);
+
+// launch/reset
+void start();
+
+// stop
+void stop();
+
+// time-out
+bool timeout(T tout);
+
+// interval
+bool interval(T prd);
+
+// phase
+bool phase(T prd);
+
+// flooding
+bool overflow(T prd);
+
+// timer
+bool running();
+
+// Time has passed since the start.
+T elapsed();
+```
+
+### Macros
+```cpp
+// EVERY
+EVERY_T(prd, uptime, T);
+
+EVERY_S(s);
+
+EVERY_MS(ms);
+EVERY16_MS(ms);
+EVERY8_MS(ms);
+
+EVERY_US(us);
+EVERY16_US(us);
+EVERY8_US(us);
+
+// PHASE
+PHASE_T(prd, uptime, T);
+
+PHASE_S(s);
+
+PHASE_MS(ms);
+PHASE16_MS(ms);
+PHASE8_MS(ms);
+
+PHASE_US(us);
+PHASE16_US(us);
+PHASE8_US(us);
+```
+
+- Type
+  - `EVERY`- reset timer = uptime
+  - `PHASE` - timer += prd
+- Units
+  - `S`- seconds.
+  - `MS`- milliseconds.
+  - `US`- microseconds.
+- Delicacy
+  - No number - 32-bit counter (up to 4,294,967,295 units)
+  - `16`16-bit counter (up to 65,535 units)
+  - `8`8-bit counter (up to 255 units)
+
+You can override standard uptime functions in macros`_MS`and`_US`:
+
+```cpp
+// before connecting the library
+#define GT_MACRO_MILLIS millis
+#define GT_MACRO_MICROS micros
+```
+
+## Examples
+### Normal.
+```cpp
+#include <Arduino.h>
+#include <GTimer.h>
+
+GTimer<millis> tmr1;
+
+void setup() {
+    Serial.begin(115200);
+
+    tmr1.setMode(GTMode::Timeout);
+    tmr1.setTime(2000);
+    tmr1.start();
 }
 
-VOID loop () {
-if (TMR1) serial.println ("Timeout");
+void loop() {
+    if (tmr1) Serial.println("timeout");
 
-static gtimer <millis> tmr2 (500, True);
-IF (TMR2) serial.println ("Interval");
+    static GTimer<millis> tmr2(500, true);
+    if (tmr2) Serial.println("interval");
 }
-`` `
+```
 
-#### Processor
-`` `CPP
-#include <arduino.h>
-#include <gtimer.h>
+### Processor
+```cpp
+#include <Arduino.h>
+#include <GTimer.h>
 
-Gtimercb <millis> tmr1, TMR2;
+GTimerCb<millis> tmr1, tmr2;
 
-VOID Ontimer () {
-Serial.println ("Ready 2");
-}
-
-VOID setup () {
-Serial.Begin (115200);
-
-// Lambda
-tmr1.startinTerval (500, [] () {
-Serial.println ("Ready 1");
-
-// appeal to the current timer
-// static_cast <gtimercb <millis>*> (thisgtimer)-> stop ();
-});
-
-// External
-TMR2.STARTINTERVAL (1000, Ontimer);
+void onTimer() {
+    Serial.println("ready 2");
 }
 
-VOID loop () {
-TMR1.Tick ();
-TMR2.Tick ();
+void setup() {
+    Serial.begin(115200);
+
+    // lambda
+    tmr1.startInterval(500, []() {
+        Serial.println("ready 1");
+
+        // timer
+        // static_cast<GTimerCb<millis>*>(thisGTimer)->stop();
+    });
+
+    // external
+    tmr2.startInterval(1000, onTimer);
 }
-`` `
 
-### virtual
-`` `CPP
-#include <arduino.h>
-#include <gtimer.h>
+void loop() {
+    tmr1.tick();
+    tmr2.tick();
 
-Class testtimer: public gtimercb <millis> {
-Public:
-using gtimercb <millis> :: gtimercb;
-
-VOID online () {
-Serial.println ("Ready");
+    static GTimerCb<millis> tmr3(500, []() {
+        Serial.println("ready 3");
+    });
+    tmr3.tick();
 }
+```
+
+### Virtual
+```cpp
+#include <Arduino.h>
+#include <GTimer.h>
+
+class TestTimer : public GTimerCb<millis> {
+   public:
+    using GTimerCb<millis>::GTimerCb;
+
+    void onReady() {
+        Serial.println("ready");
+    }
 };
 
-TestTimer TMR (500, True);
+TestTimer tmr(500, true);
 
-VOID setup () {
-Serial.Begin (115200);
+void setup() {
+    Serial.begin(115200);
 }
 
-VOID loop () {
-TMR.Tick ();
+void loop() {
+    tmr.tick();
 }
-`` `
+```
 
-<a ID = "Versions"> </a>
+### macro
+```cpp
+#include <Arduino.h>
+#include <GTimer.h>
 
-## versions
-- V1.0
+void setup() {
+    Serial.begin(115200);
+}
 
-<a id = "Install"> </a>
+void loop() {
+//   EVERY_T(500, millis) Serial.println("500 ms!");
+  
+//   EVERY_T(100000, micros) {
+//     Serial.println("100000 us!");
+//   }
+
+  EVERY_MS(500) Serial.println("500 ms!");
+
+  EVERY_US(100000) {
+    Serial.println("100000 us!");
+  }
+
+  EVERY_S(5) {
+    Serial.println("5 s!");
+  }
+}
+```
+
+### uTimer
+```cpp
+#include <GTimer.h>
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("start");
+}
+
+uTimer16<millis> tmr(true);
+
+void loop() {
+    if (tmr.timeout(500)) {
+        Serial.println("tout");
+    }
+}
+```
+
+<a id="versions"></a>
+
+## Versions
+- v1.0
+- v1.0.1 - EVERY macro added   T
+
+<a id="install"></a>
 ## Installation
-- The library can be found by the name ** gtimer ** and installed through the library manager in:
-- Arduino ide
-- Arduino ide v2
-- Platformio
-- [download the library] (https://github.com/gyverlibs/gtimer/archive/refs/heads/main.zip). Zip archive for manual installation:
-- unpack and put in * C: \ Program Files (X86) \ Arduino \ Libraries * (Windows X64)
-- unpack and put in * C: \ Program Files \ Arduino \ Libraries * (Windows X32)
-- unpack and put in *documents/arduino/libraries/ *
-- (Arduino id) Automatic installation from. Zip: * sketch/connect the library/add .Zip library ... * and specify downloaded archive
-- Read more detailed instructions for installing libraries [here] (https://alexgyver.ru/arduino-first/#%D0%A3%D1%81%D1%82%D0%B0%BD%D0%BE%BE%BE%BED0%B2%D0%BA%D0%B0_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA)
+- The library can be found under the name **GTimer** and installed through the library manager in:
+    - Arduino IDE
+    - Arduino IDE v2
+    - PlatformIO
+- [Download the library](https://github.com/GyverLibs/GTimer/archive/refs/heads/main.zip).zip archive for manual installation:
+    - Unpack and put in *C:\Program Files (x86)\Arduino\libraries* (Windows x64)
+    - Unpack and put in *C:\Program Files\Arduino\libraries* (Windows x32)
+    - Unpack and put in *Documents/Arduino/libraries/ *
+    - (Arduino IDE) Automatic installation from .zip: *Sketch/Connect library/Add .ZIP library...* and specify downloaded archive
+- Read more detailed instructions for installing libraries[here](https://alexgyver.ru/arduino-first/#%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA)
 ### Update
-- I recommend always updating the library: errors and bugs are corrected in the new versions, as well as optimization and new features are added
-- through the IDE library manager: find the library how to install and click "update"
-- Manually: ** remove the folder with the old version **, and then put a new one in its place.“Replacement” cannot be done: sometimes in new versions, files that remain when replacing are deleted and can lead to errors!
+- I recommend always updating the library: new versions fix errors and bugs, as well as optimize and add new features.
+- Through the library manager IDE: find the library as when installing and click "Update"
+- Manually: **Delete the folder with the old version** and then put the new one in its place. “Replacement” can not be done: sometimes new versions delete files that will remain when replaced and can lead to errors!
 
-<a id = "Feedback"> </a>
+<a id="feedback"></a>
 
-## bugs and feedback
-Create ** Issue ** when you find the bugs, and better immediately write to the mail [alex@alexgyver.ru] (mailto: alex@alexgyver.ru)
-The library is open for refinement and your ** pull Request ** 'ow!
+## Bugs and feedback
+If you find bugs, create **Issue**, or better write to the mail immediately.[alex@alexgyver.ru](mailto:alex@alexgyver.ru)  
+The library is open for revision and your **Pull Requests*!
 
-When reporting about bugs or incorrect work of the library, it is necessary to indicate:
-- The version of the library
-- What is MK used
+When reporting bugs or incorrect work of the library, it is necessary to specify:
+- Library version
+- What is used by the IC
 - SDK version (for ESP)
-- version of Arduino ide
-- whether the built -in examples work correctly, in which the functions and designs are used, leading to a bug in your code
-- what code has been loaded, what work was expected from it and how it works in reality
-- Ideally, attach the minimum code in which the bug is observed.Not a canvas of a thousand lines, but a minimum code
+- Arduino IDE version
+- Are embedded examples that use features and designs that cause bugs in your code working correctly?
+- What code was downloaded, what work was expected from it and how it works in reality
+- Ideally, attach the minimum code in which the bug is observed. Not a canvas of a thousand lines, but a minimum code.
