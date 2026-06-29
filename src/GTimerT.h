@@ -7,7 +7,7 @@ enum class GTMode : uint8_t {
     Overflow,  // продолжает срабатывать при срабатывании
 };
 
-static void* thisGTimer = nullptr;
+extern void* thisGTimer;
 
 #define _GT_INTERVAL 0
 #define _GT_TIMEOUT 1
@@ -20,7 +20,7 @@ static void* thisGTimer = nullptr;
 template <unsigned long (*uptime)(), typename T>
 class GTimerT {
    public:
-    GTimerT() {}
+    GTimerT() : _state(_GT_STOPPED) {}
     GTimerT(uint32_t time, bool start = false, GTMode mode = GTMode::Interval, bool keepPhase = false) : _prd(time), _phase(keepPhase) {
         setMode(mode);
         if (start) GTimerT::start();
