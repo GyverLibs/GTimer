@@ -45,9 +45,9 @@ class GTimerT {
     // установить время (для мс)
     void setTime(uint32_t ms, uint32_t sec, uint16_t min = 0, uint16_t hour = 0, uint16_t day = 0) {
         if (sec) ms += sec * 1000ul;
-        if (min) ms += min * 60 * 1000ul;
-        if (hour) ms += hour * 60 * 60 * 1000ul;
-        if (day) ms += day * 24 * 60 * 60 * 1000ul;
+        if (min) ms += min * 60ul * 1000;
+        if (hour) ms += hour * 60ul * 60 * 1000;
+        if (day) ms += day * 24ul * 60 * 60 * 1000;
         setTime(ms);
     }
 
