@@ -20,10 +20,12 @@ extern void* thisGTimer;
 template <unsigned long (*uptime)(), typename T>
 class GTimerT {
    public:
-    GTimerT() : _state(_GT_STOPPED) {}
-    GTimerT(uint32_t time, bool start = false, GTMode mode = GTMode::Interval, bool keepPhase = false) : _prd(time), _phase(keepPhase) {
-        setMode(mode);
-        if (start) GTimerT::start();
+    GTimerT(uint32_t time = 0, bool autostart = false, GTMode mode = GTMode::Interval, bool keepPhase = false) : _tmr(0), _prd((T)time) {
+        _mode = (uint8_t)mode;
+        _state = _GT_STOPPED;
+        _phase = keepPhase;
+        _overflow = false;
+        if (autostart) start();
     }
 
     // держать фазу в режиме Interval (умолч. false)
@@ -126,7 +128,6 @@ class GTimerT {
 
     // прошло времени в единицах таймера
     T getCurrent() {
-        if (_overflow) return 0;
         switch (_state) {
             case _GT_RUNNING: return (T)uptime() - _tmr;
             case _GT_PAUSED: return _tmr;
